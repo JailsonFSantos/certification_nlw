@@ -6,6 +6,10 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,14 +18,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.metamodel.Type.PersistenceType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "certification")
+@Entity(name = "certifications")
+@Builder
 public class CertificationStudentEntity {
 
     @Id
@@ -34,21 +41,20 @@ public class CertificationStudentEntity {
     @Column(length = 10)
     private int grade;
 
-    @JoinColumn(name = "student_id")
+    @Column(name = "student_id")
     private UUID studentID;
 
     @ManyToOne
     @JoinColumn(name = "student_id", insertable = false, updatable = false)
+
     private StudentEntity studentEntity;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "answer_certification_id", insertable = false, updatable = false)
-    List<AnswersCertificationsEntity> answersCertificationsEntity;
-    
+    @JsonManagedReference
+    List<AnswersCertificationsEntity> answersCertificationsEntities;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-
-
-    
 }

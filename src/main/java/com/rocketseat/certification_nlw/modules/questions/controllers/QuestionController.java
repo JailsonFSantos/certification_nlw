@@ -15,11 +15,8 @@ import com.rocketseat.certification_nlw.modules.questions.entities.AlternativesE
 import com.rocketseat.certification_nlw.modules.questions.entities.QuestionEntity;
 import com.rocketseat.certification_nlw.modules.questions.repositories.QuestionRepository;
 
-import lombok.Builder;
-
 @RestController
 @RequestMapping("/questions")
-@Builder
 public class QuestionController {
 
     @Autowired

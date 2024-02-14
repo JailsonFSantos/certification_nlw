@@ -15,19 +15,17 @@ import lombok.NoArgsConstructor;
 
 @Entity(name = "alternatives")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class AlternativesEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String description;
 
-    private String isCorrect;
+    private boolean isCorrect;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
 }
